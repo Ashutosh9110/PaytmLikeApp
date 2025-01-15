@@ -1,3 +1,6 @@
 docker build ./ -t mongodb:4.7-replset
 
 docker run --name mongodb-replset22 -p 27017:27017 -d mongodb:4.7-replset
+
+
+to kill a docker image : docker kill (CONTAINER ID) || for this project-ba941896d320 
