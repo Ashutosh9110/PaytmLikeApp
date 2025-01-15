@@ -1,7 +1,11 @@
 // backend/db.js
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://adhikariashutosh28:wiv4nXgooadLqd0g@foodrecipeapp.370xw.mongodb.net/paytm")
+const connectionDb = async () => {
+    await mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log('...connected'))
+}
+
 
 // Create a Schema for Users
 const userSchema = new mongoose.Schema({
@@ -50,5 +54,6 @@ const User = mongoose.model('User', userSchema);
 
 module.exports = {
 	User,
-    Account
+    Account,
+    connectionDb
 };
