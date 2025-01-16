@@ -5,6 +5,7 @@ import { InputBox } from '../components/InputBox'
 import { Button } from '../components/Button'
 import { BottomWarning } from '../components/BottomWarning'
 import axios from "axios"
+import { useNavigate } from 'react-router-dom'
 
 export const Signup = () => {
 
@@ -13,6 +14,8 @@ export const Signup = () => {
   const [ lastName, setLastName ] = useState("")
   const [ username, setUsername ] = useState("")
   const [ password, setPassword ] = useState("")
+  const navigate = useNavigate() 
+
 
   return (
     <div className='bg-slate-300 h-screen flex justify-center'>
@@ -33,13 +36,15 @@ export const Signup = () => {
         setPassword(e.target.value)
       }} placeholder="123456" label={"Password"} />
         <div className="pt-4">
-          <Button onPress ={() => {
-            axios.post("http://localhost:3000/api/v1/user/signup", {
+          <Button onClick ={ async () => {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
               firstName,
               lastName,
               username,
               password
             })
+            localStorage.setItem("token", response.data.token)
+            navigate("/dashboard")
           }} label={"Sign up"} />
 
   {/* Anytime this button is clicked, we will send the backend request */}
